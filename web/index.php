@@ -1,16 +1,20 @@
 <?php
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-$user = [
-  'lorem',
-  'ipsum',
-  'foo',
-  'bar',
-  'baz'
+$users = [
+  ['id' => 0, 'name' => 'lorem'],
+  ['id' => 1, 'name' => 'ipsum'],
+  ['id' => 2, 'name' => 'foo']
 ];
 
 $app = new Silex\Application();
+
+
+//activer le mode debug
+$app['debug']=true;
 
 $app->get('/hello/{name}', function($name) use($app) {
     return 'Hello '.$app->escape($name);
@@ -19,7 +23,7 @@ $app->get('/hello/{name}', function($name) use($app) {
 $app->get('/', function(){
   return <<<EOT
   <!DOCTYPE html>
-  <html lang="en">
+  <html lang="fr">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,11 +53,34 @@ $app->get('/', function(){
 EOT;
 });
 
-$app->get('/api/users/{id}', function($id) use($app){
-  return "Id de l'utilisateur : ".$app->escape($id);
+$app->get('api/users', function() use($users){
+  return json_encode($users);
 });
 
-$app->get('api/users', function() use($user){
-  return json_encode($user);
+
+$app->get('/api/users/{id}', function($id) use($users){
+  return json_encode($users[$id]);
 });
+
+$app->post('/api/users/', function(Request $request) use ($users){
+  $name = $request->get('name');
+
+  $nextIndex = count($users);
+
+  $users[]=[
+    'id'=> $nextIndex,
+    'name'=> $name
+  ];
+
+  $lastId = count($users) - 1;
+
+  return $lastId;
+});
+
+$app->delete('/api/users/{id}', function($id) use ($users){
+  unset($user[$id]);
+
+  return new Response('', 204);
+});
+
 $app->run();
