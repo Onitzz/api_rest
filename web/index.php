@@ -16,7 +16,7 @@ $app->get('/hello/{name}', function($name) use($app) {
     return 'Hello '.$app->escape($name);
 });
 
-$app->get('/doc', function(){
+$app->get('/', function(){
   return <<<EOT
   <!DOCTYPE html>
   <html lang="en">
@@ -28,19 +28,19 @@ $app->get('/doc', function(){
   </head>
   <body>
     <pre>
-    GET /users/
+    GET /api/users/
     renvoit la liste des utilisateurs
 
-    GET /users/{id}
+    GET /api/users/{id}
     renvoit le détail d'un utilisateur
 
-    POST /users/
+    POST /api/users/
     ajoute un utilisateur
 
-    PUT /users/{id}
+    PUT /api/users/{id}
     ajoute ou modifie un utilisateur
 
-    DELETE /users/{id}
+    DELETE /api/users/{id}
     Supprime un utilisateur'
 
     </pre>
@@ -49,11 +49,11 @@ $app->get('/doc', function(){
 EOT;
 });
 
-$app->get('/users/{id}', function($id) use($app){
+$app->get('/api/users/{id}', function($id) use($app){
   return "Id de l'utilisateur : ".$app->escape($id);
 });
 
-$app->get('/users', function() use($user){
+$app->get('api/users', function() use($user){
   return json_encode($user);
 });
 $app->run();

@@ -12,17 +12,17 @@ L'api fournit une liste d'utilisateur
 
 ## utilisation
 
-GET /users/
+GET /api/users/
 renvoit la liste des utilisateurs
 
-GET /users/{id}
+GET /api/users/{id}
 renvoit le détail d'un utilisateur
 
-POST /users/
+POST /api/users/
 ajoute un utilisateur
 
-PUT /users/{id}
+PUT /api/users/{id}
 ajoute ou modifie un utilisateur
 
-DELETE /users/{id}
+DELETE /api/users/{id}
 Supprime un utilisateur
