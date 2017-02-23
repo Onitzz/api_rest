@@ -1,0 +1,12 @@
+# API REST
+
+## Description
+
+Projet d'api rest développé à Popschool, durant la session 2016-2017
+composer require silex/silex:~2.0
+## Installation
+
+    composer install
+
+## Utilisation
+
